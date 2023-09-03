@@ -20,9 +20,6 @@ Explanation: The LLM should know what level of BP is considered normal, it shoul
 5. Fewshot inference (dynamically selected examples based on similarity/MMR/n-gram overlap etc)
    
 
-
-
-
 ## References
 1. Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs ([link](https://arxiv.org/pdf/2305.03111.pdf))
 2. DIN-SQL: Decomposed In-Context Learning of Text-to-SQL with Self-Correction ([link](https://arxiv.org/pdf/2304.11015.pdf))
