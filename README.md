@@ -16,7 +16,9 @@ Explanation: The LLM should know what level of BP is considered normal, it shoul
 1. Zeroshot Inference
 2. Oneshot Inference (pre-determined/static examples)
 3. Fewshot inference (pre-determined/static examples)
-4. Oneshot inference
+4. Oneshot inference (dynamically selected examples based on similarity/MMR/n-gram overlap etc)
+5. Fewshot inference (dynamically selected examples based on similarity/MMR/n-gram overlap etc)
+   
 
 
 
