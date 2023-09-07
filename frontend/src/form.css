@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.radio {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(163, 206, 243);
+    align-items: flex-start;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: linear-gradient(rgb(4, 4, 78),black );
+}
+div + div {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#dbtype{
+    display: flex;
+    align-items: flex-start;
+    font-weight: 700;
+}
+
+.radio 
+{ transition: all .2s ease-in-out; }
+.radio:hover{
+    background-color: rgb(93, 165, 227);
+    transform: scale(1.1);
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(163, 206, 243);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+table{
+    width: 80%;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+}
+#details{
+    background-color: rgb(207, 204, 204);
+    width: 10%;
+    padding: 2%;
+}
+
+#input{
+    background-color: rgb(163, 206, 243);
+    padding-left: 2%;
+}
+.btn{
+    width: 20%;
+    background-color: white;
+    border: 0;
+    height:30px;
+    transition: all .2s ease-in-out;
+}
+.btn:hover{
+    background-color: rgb(164, 161, 161);
+    transform: scale(1.1);
+    color: white;
+}
+
+.formdetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Error{
+    text-align: center;
+}
+.message{
+    background-color: rgb(248, 135, 135);
+    color: red;
+}
+.table_display {
+    background-color: white;
+    color: rgb(74, 74, 243);
+}
+.table_display thead{
+    color:rgb(255, 254, 254);
+    background-color: rgb(4, 4, 78);
+    font-weight: bold;
+}
+.table_display tbody{
+    text-align: center;
+}
+.table_display tr:nth-child(even) {
+    background-color: rgb(163, 206, 243);
+  }
+
+.title{
+    margin-top: 5%;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10%;
+}
+
+.ip{
+    border: 0;
+    width: 40%;
+}
+.port{
+    border: 0;
+    width: 40%;
+}
