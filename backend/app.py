@@ -5,7 +5,6 @@ import json
 # Import modules to connect to databases
 from postgresCon import postgress_connect
 from mysqlCon import mysql_connect
-from mssqlCon import mssql_connect
 
 # Setup Flask app and configure CORS
 app = Flask(__name__)
