@@ -1,28 +1,43 @@
-import {React,Component} from "react";
-import './form.css';
+import React, { Component } from "react";
+import './databaseSelect.css';
 import Papa from 'papaparse';
 
-// Create a class-based component named FormValue
 class FormValue extends Component {
-  // Initialize the state in the constructor
   constructor() {
     super();
     this.state = {
       isError: false,
       apimessage: "",
       data: [],
+      databases: [],
+      selectedDatabase: null,
     };
-
-    // Bind the 'this' context to the handler function
-    this.onValueChange = this.onValueChange.bind(this);
+    
     this.formSubmit = this.formSubmit.bind(this);
-  }
-  // This method will be called when the user clicks on a radio button
-  onValueChange(event) {
-    this.setState({
-      selectedOption: event.target.value
-    });
+}
 
+
+  componentDidMount() {
+    fetch('http://localhost:5000/getDB')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === 'Success') {
+          this.setState({ databases: data.databases });
+        } else {
+          console.error('Error fetching databases:', data.message);
+        }
+      })
+      .catch(error => console.error('Error fetching databases:', error));
+  }
+
+  onDatabaseChange = (event) => {
+    const selectedDbName = event.target.value;
+    const selectedDb = this.state.databases.find(db => db.name === selectedDbName);
+    this.setState({
+      selectedDatabase: selectedDb,
+
+    });
   }
 
   exportDataAsCSV = () => {
@@ -43,63 +58,54 @@ class FormValue extends Component {
     }
   }
 
-
-  // This method will be called when the user clicks on the submit button
   formSubmit(event) {
-    // Prevent default form submission behavior
     event.preventDefault();
 
-    // Get the form data
+    if (!this.state.selectedDatabase) {
+      alert("Please select a database.");
+      return;
+    }
+
+
     const form = event.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    // Body for the API call
+    // Update data with selectedDatabase details
     const data = {
-      "database_url": formJson.database_url,
-      "query": formJson.query,
-      "database_type": formJson.database_type,
-      "server_address": formJson.server_address,
-      "database_name": formJson.database_name,
-      "username": formJson.username,
-      "password": formJson.password
+      ...formJson,
+      database_url: this.state.selectedDatabase.url,
+      database_name: this.state.selectedDatabase.name,
+      database_type: this.state.selectedDatabase.type,
     }
-    
-    // API Call
-    fetch('http://localhost:5000/connect', {
+    console.log('Sending Data:', data);
+
+    fetch('http://localhost:5000/retrieve', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
     })
-    // Get the response from the API call
-    .then(response => response.json())
-    // Store the data returned by the API call
-    .then(data => {
-      // Check if the API call was successful
-      if(data.status === "Success"){
-        this.setState({data: data.message})
-        alert("Database connected successfully");
-        console.log(data.message);
-        this.setState({isError: false});
-        this.setState({apimessage: data.message});
-      }
-      else{
-        this.setState({isError: true});
-        this.setState({apimessage: data.message});
-      }
-    }
-    // Catch and log any errors
-    ).catch(error => {
-      alert("Error select a database");
-      data.status = "Error";
-    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "Success") {
+          this.setState({ data: data.message, isError: false, apimessage: data.message });
+          alert("Database connected successfully");
+        }
+        else {
+          this.setState({ isError: true, apimessage: data.message });
+        }
+      })
+      .catch(error => {
+        alert("Error: Unable to connect to the database");
+        console.log(error);
+        this.setState({ isError: true, apimessage: "Unable to connect to the database" });
+      })
   }
-  
-  // Render the component on the screen
+
   render() {
-    const { isError, apimessage, data } = this.state;
+    const { isError, apimessage, data, databases } = this.state;
     return (
       <div className="form-container">
         <form onSubmit={this.formSubmit} id="body">
@@ -107,55 +113,19 @@ class FormValue extends Component {
             <h4>Choose Your Preferred Database</h4>
           </div>
           <div className="radio-group">
-            <div className="radio">
-              <label id="dbtype">
-                <input type="radio" value="postgres" name="database_type" />
-                PostgreSQL
-              </label>
-              <p>The official PostgreSQL JDBC Driver</p>
-            </div>
-            <div className="radio">
-              <label id="dbtype">
-                <input type="radio" value="mysql" name="database_type" />
-                MySQL
-              </label>
-              <p>The official MySQL JDBC Driver</p>
-            </div>
+            <select onChange={this.onDatabaseChange} className="input">
+              <option value="" disabled selected>Select a Database</option>
+              {databases.map(db => (
+                <option value={db.name} key={db.name}>{db.database_name} ({db.database_type})</option>
+              ))}
+            </select>
           </div>
-          <hr />
-          <div className="title">
-            <h4>Enter Connection Details of the Selected Database</h4>
-          </div>
+
           <div className="form-details">
             <table cellSpacing="0">
               <tbody>
                 <tr id="row">
-                  <td id="details"><label id="details">URL:</label></td>
-                  <td id="input"><label>URL for the database</label><br/><input className="ip" type="text" name="database_url" defaultValue="None"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Database Name:</label></td>
-                  <td id="input"><label>Name your Database</label><br/><input className="ip" type="text" name="database_name" defaultValue="None"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Server Address:</label></td>
-                  <td id="input"><label>Enter Server Address</label><br/><input className="ip" type="text" name="server_address" defaultValue="None"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Port:</label></td>
-                  <td id="input"><label>Port number for your database</label><br/><input type="text" name="port" className="port"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Username:</label></td>
-                  <td id="input"><label>Username to access your database</label><br/><input className="ip" type="text" name="username" defaultValue="None"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Password:</label></td>
-                  <td id="input"><label>Password for the user</label><br/><input className="ip" type="password" name="password" defaultValue="None"/></td>
-                </tr>
-                <tr id="row">
-                  <td id="details"><label id="details">Query:</label></td>
-                  <td id="input"><label>Enter query</label><br/><input className="ip" type="text" name="query" defaultValue="None"/></td>
+                  <td id="input"><label className="label">Enter query</label><input className="input" type="text" name="query" defaultValue="None"/></td>
                 </tr>
               </tbody>
             </table>
