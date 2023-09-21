@@ -1,0 +1,87 @@
+/* adminpage.css */
+body {
+    font-family: 'Arial, sans-serif';
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.admin-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.admin-title h4 {
+    color: #333;
+    font-size: 24px;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    color: #555;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    background: #333;
+    text-align: center;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    padding: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 0 15px;
+}
+
+nav ul li a:hover {
+    background-color: #111;
+}
