@@ -3,19 +3,14 @@ import psycopg2
 
 # Define a class that will handle connecting to an PostgreSQL database
 class postgress_connect:
-    def __init__(self,query,database_url,server_name,database_name,username,password):
+    def __init__(self,query,database_url,database_name):
         self.query = query
         self.database_url = database_url
-        self.server_name = server_name
         self.database_name = database_name
-        self.username = username
-        self.password = password
     def connection(self):
         try:
-            if self.database_url == "None":
-                conn_string= f"host={self.server_name} dbname={self.database_name} user={self.username} password={self.password} sslmode=require"
-            else:
-                conn_string = self.database_url
+
+            conn_string = self.database_url
 
             # Establish the database connection
             conn = psycopg2.connect(conn_string)

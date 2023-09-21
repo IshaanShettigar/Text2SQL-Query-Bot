@@ -1,45 +1,81 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
+import configparser
 
-# Import modules to connect to databases
 from postgresCon import postgress_connect
 from mysqlCon import mysql_connect
 
-# Setup Flask app and configure CORS
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-# Route for handling database connections
-@app.route('/connect', methods=['POST'])
+configfile = "databases.cfg"
+config = configparser.ConfigParser()
+
+@app.route('/retrieve', methods=['POST'])
 @cross_origin()
 def connect():
-    # Get incoming request data
-    data_collect = json.loads(request.get_data())
+    try:
+        data_collect = request.get_json(force=True)
+        database_url = data_collect.get('database_url')
+        query = data_collect.get('query')
+        database = data_collect.get('database_type')
+        database_name = data_collect.get('database_name')
+        
+        if not (database_url and query and database and database_name):
+            return jsonify({"status": "Error", "message": "Missing required parameters"}), 400
 
-    # Get database details from request data
-    database_url = data_collect['database_url']
-    query = data_collect['query']
-    database = data_collect['database_type']
-    server_name = data_collect['server_address']
-    database_name = data_collect['database_name']
-    username = data_collect['username']
-    password = data_collect['password']
+        if database == "postgres":
+            p = postgress_connect(query,database_url,database_name)
+            return p.connection()
 
-    # Connect to the appropriate database based on request data
-    if database == "postgres":
-        p = postgress_connect(query,database_url,server_name,database_name,username,password)
-        return p.connection()
+        elif database == "mysql":
+            m = mysql_connect(query,database_url,database_name)
+            return m.connection()
+    
+    except Exception as e:
+        return jsonify({"status": "Error", "message": "Could not connect to database. Reason: " + str(e)}), 500
 
-    elif database == "mysql":
-        m = mysql_connect(query,database_url,server_name,database_name,username,password)
-        return m.connection()
+@app.route('/addDB', methods=['POST'])
+@cross_origin()
+def addDatabase():
+    data = json.loads(request.get_data())
 
-    elif database == "mssql":
-        ms = mssql_connect(query,database_url,server_name,database_name,username,password)
-        return ms.connection()
+    if data['database_name'] in config:
+        return jsonify({"status": "Error", "message": "Database with this name already exists."}), 400
 
-# Start Flask app
+    # Add new database details to the config
+    config[data['database_name']] = {
+        'database_type': data['database_type'],
+        'database_url': data['database_url'],
+        'database_name': data['database_name']
+    }
+
+    with open(configfile, 'w') as cfg:
+        config.write(cfg)
+
+    return jsonify({"status": "Success", "message": "Database details added successfully!"})
+
+@app.route("/getDB", methods=['GET'])
+@cross_origin()
+def getDatabase():
+    try:
+        databases = []
+        for section in config.sections():
+            database = {
+                'name': section,
+                'type': config[section]['database_type'],
+                'url': config[section]['database_url'],
+                'database_name': config[section]['database_name']
+            }
+            databases.append(database)
+        
+        return jsonify({'status': 'Success', 'databases': databases}), 200
+    except Exception as e:
+        return jsonify({'status': 'Error', 'message': 'Could not retrieve databases. Reason: ' + str(e)}), 500
+
+
 if __name__ == '__main__':
+    config.read(configfile)
     app.run(debug=True)

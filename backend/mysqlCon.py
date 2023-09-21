@@ -3,31 +3,20 @@ import pymysql
 
 # Define a class that will handle connecting to an MYSQL database
 class mysql_connect:
-    def __init__(self,query,database_url,server_name,database_name,username,password):
+    def __init__(self,query,database_url,database_name):
         # Set the values for the various connection and query details
         self.database_url = database_url
         self.query = query
-        self.server_name = server_name
         self.database_name = database_name
-        self.username = username
-        self.password = password
 
     # Function to create the connection to the database and execute the query
     def connection(self):
         try:
-            # If no database_url is provided, use the individual components
-            if self.database_url == "None":
-                host = self.server_name
-                user = self.username
-                password = self.password
-                db = self.database_name
 
-            # Parse the database URL to get the individual components
-            else:
-                host = self.database_url.split("@")[1].split("/")[0]
-                user = self.database_url.split("@")[0].split(":")[0]
-                password = self.database_url.split("@")[0].split(":")[1]
-                db = self.database_url.split("/")[1]
+            host = self.database_url.split("@")[1].split("/")[0]
+            user = self.database_url.split("@")[0].split(":")[0]
+            password = self.database_url.split("@")[0].split(":")[1]
+            db = self.database_url.split("/")[1]
 
             col_names = []
 
