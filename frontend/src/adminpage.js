@@ -45,7 +45,6 @@ class AdminPage extends Component {
       .then(data => {
         if(data.status === "Success"){
           alert("Database added successfully");
-          // Clearing the form fields after successful submission
           this.setState({
             database_type: "",
             database_url: "",
