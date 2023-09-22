@@ -1,3 +1,4 @@
 .vscode
 backend/__pycache__
 backend/databases.cfg
+backend/350Model
