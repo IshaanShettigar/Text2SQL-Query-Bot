@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response
 import pymysql
 
 # Define a class that will handle connecting to an MYSQL database
+# root:root@localhost:3306/department_management
 class mysql_connect:
     def __init__(self,query,database_url,database_name):
         # Set the values for the various connection and query details
@@ -21,12 +22,13 @@ class mysql_connect:
             col_names = []
 
             # Establish the database connection
-            conn = pymysql.connect(host=host, user=user, password=password, db=db)
+            # conn = pymysql.connect(host=host, user=user, password=password, db=db)
+            conn = pymysql.connect(host="localhost:3306", user="root", password="root", db="department_management")
             cur = conn.cursor()
 
             # Depending on the query, execute different database commands
             if self.query == "None":
-                cur.execute("SELECT * FROM circuits")
+                cur.execute("SELECT * FROM department") # for execution on department management database given in spider dataset. 
             elif "create" in self.query:
                 # If the query contains "create", return an error message
                 return make_response(jsonify({"status": "Error", "message": "Create not allowed"}),500)
@@ -58,3 +60,7 @@ class mysql_connect:
             return make_response(jsonify({"status": "Error", "message": str(e)}),500)
         except Exception as e:
             return make_response(jsonify({"status": "Error", "message": str(e)}),500)
+        
+
+# sqlobj = mysql_connect(database_url="root:root@localhost:3306/department_management", query=None,database_name="department_management")
+# sqlobj.connection()

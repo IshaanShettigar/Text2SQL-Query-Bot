@@ -9,7 +9,7 @@ class mysql_DDL:
 
     def connection(self):
         try:
-            conn = mysql.connector.connect(host='your_host', user='your_user', password='your_password', database=self.database_name)
+            conn = mysql.connector.connect(self.database_url)
             cur = conn.cursor()
 
             cur.execute("""
