@@ -4,12 +4,10 @@ import pymysql
 # Define a class that will handle connecting to an MYSQL database
 class mysql_connect:
     def __init__(self,query,database_url,database_name):
-        # Set the values for the various connection and query details
         self.database_url = database_url
         self.query = query
         self.database_name = database_name
 
-    # Function to create the connection to the database and execute the query
     def connection(self):
         try:
 
@@ -20,25 +18,20 @@ class mysql_connect:
 
             col_names = []
 
-            # Establish the database connection
             conn = pymysql.connect(host=host, user=user, password=password, db=db)
             cur = conn.cursor()
 
-            # Depending on the query, execute different database commands
             if self.query == "None":
                 cur.execute("SELECT * FROM circuits")
             elif "create" in self.query:
-                # If the query contains "create", return an error message
                 return make_response(jsonify({"status": "Error", "message": "Create not allowed"}),500)
             elif any(word in self.query for word in ("insert", "update", "delete")):
-                # If the query contains "insert", "update", or "delete", execute the query
                 cur.execute(self.query)
                 conn.commit()
                 cur.execute("SELECT * FROM circuits")
             else:
                 cur.execute(self.query)
 
-            # Retrieving the column names from the query results
             if cur.description is not None:
                 col_names = [desc[0] for desc in cur.description]
 
