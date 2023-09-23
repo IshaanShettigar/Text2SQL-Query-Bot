@@ -11,6 +11,8 @@ class FormValue extends Component {
       data: [],
       databases: [],
       selectedDatabase: null,
+      sql: "",
+      question: "",
     };
     
     this.formSubmit = this.formSubmit.bind(this);
@@ -58,50 +60,95 @@ class FormValue extends Component {
     }
   }
 
-  formSubmit(event) {
+  async formSubmit(event) {
     event.preventDefault();
-
+  
     if (!this.state.selectedDatabase) {
       alert("Please select a database.");
       return;
     }
-
-
+  
     const form = event.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-
-    // Update data with selectedDatabase details
+  
     const data = {
       ...formJson,
       database_url: this.state.selectedDatabase.url,
       database_name: this.state.selectedDatabase.name,
       database_type: this.state.selectedDatabase.type,
+      question: this.state.question,
     }
-    console.log('Sending Data:', data);
+  
+    try {
+      // Wait for the SQL to be generated before proceeding.
+      const generatedSQL = await this.getGeneratedSQL(data);
+      this.setState({ generatedSQL });
+  
+      const data2 = {
+        ...formJson,
+        database_url: this.state.selectedDatabase.url,
+        database_name: this.state.selectedDatabase.name,
+        database_type: this.state.selectedDatabase.type,
+        query: generatedSQL,
+      }
+  
+      // Proceed with retrieve_data.
+      fetch('http://localhost:5000/retrieve_data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data2),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "Success") {
+            this.setState({ data: data.message, isError: false, apimessage: data.message });
+            alert("Database connected successfully");
+          }
+          else {
+            this.setState({ isError: true, apimessage: data.message });
+          }
+        })
+        .catch(error => {
+          alert("Error: Unable to connect to the database");
+          console.log(error);
+          this.setState({ isError: true, apimessage: "Unable to connect to the database" });
+        })
+    } catch (error) {
+      console.log(error);
+      this.setState({ isError: true, apimessage: "Error: " + error });
+    }
+  }
 
-    fetch('http://localhost:5000/retrieve', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === "Success") {
-          this.setState({ data: data.message, isError: false, apimessage: data.message });
-          alert("Database connected successfully");
-        }
-        else {
-          this.setState({ isError: true, apimessage: data.message });
-        }
+  getGeneratedSQL(data) {
+    return new Promise((resolve, reject) => {
+      fetch('http://localhost:5000/generate_SQL', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...data,
+        }),
       })
-      .catch(error => {
-        alert("Error: Unable to connect to the database");
-        console.log(error);
-        this.setState({ isError: true, apimessage: "Unable to connect to the database" });
-      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "Success") {
+            this.setState({ generatedSQL: data.sql });
+            resolve(data.sql); // Resolve the Promise with the SQL.
+          } else {
+            this.setState({ isError: true, apimessage: data.message });
+            reject(data.message); // Reject the Promise with the error message.
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({ isError: true, apimessage: "Unable to generate SQL" });
+          reject("Unable to generate SQL"); // Reject the Promise with a general error message.
+        });
+    });
   }
 
   render() {
@@ -125,7 +172,7 @@ class FormValue extends Component {
             <table cellSpacing="0">
               <tbody>
                 <tr id="row">
-                  <td id="input"><label className="label">Enter query</label><input className="input" type="text" name="query" defaultValue="None"/></td>
+                  <td id="input"><label className="label">Enter Question</label><input className="input" type="text" name="Question" placeholder="Enter your question here" onChange={(e) => this.setState({ question: e.target.value })}/></td>
                 </tr>
               </tbody>
             </table>
@@ -137,6 +184,9 @@ class FormValue extends Component {
             <span className="message">Error: {apimessage}</span>
           </div>
         </form>
+        <div>
+          <p>Generated SQL: {this.state.generatedSQL}</p>
+        </div>
         <div className="table-display">
           {data.length > 1 && (
             <table>
