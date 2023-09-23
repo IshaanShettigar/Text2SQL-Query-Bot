@@ -2,4 +2,8 @@
 backend/__pycache__
 backend/databases.cfg
 backend/350Model
+<<<<<<< HEAD
 backend/model.py
+=======
+backend\llama-2-7b-chat.ggmlv3.q8_0.bin
+>>>>>>> d2c2ebc71d25b1d7367cf2041fc50258842aa9c3
