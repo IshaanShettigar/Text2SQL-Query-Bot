@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import './databaseSelect.css';
+// import './databaseSelect.css';
 import Papa from 'papaparse';
+import './chatui.css'
 
 class FormValue extends Component {
   constructor() {
@@ -137,16 +138,16 @@ class FormValue extends Component {
         .then(data => {
           if (data.status === "Success") {
             this.setState({ generatedSQL: data.sql });
-            resolve(data.sql); // Resolve the Promise with the SQL.
+            resolve(data.sql);
           } else {
             this.setState({ isError: true, apimessage: data.message });
-            reject(data.message); // Reject the Promise with the error message.
+            reject(data.message);
           }
         })
         .catch(error => {
           console.log(error);
           this.setState({ isError: true, apimessage: "Unable to generate SQL" });
-          reject("Unable to generate SQL"); // Reject the Promise with a general error message.
+          reject("Unable to generate SQL");
         });
     });
   }
@@ -154,39 +155,32 @@ class FormValue extends Component {
   render() {
     const { isError, apimessage, data, databases } = this.state;
     return (
-      <div className="form-container">
-        <form onSubmit={this.formSubmit} id="body">
-          <div className="title">
-            <h4>Choose Your Preferred Database</h4>
-          </div>
-          <div className="radio-group">
-            <select onChange={this.onDatabaseChange} className="input">
-              <option value="" disabled selected>Select a Database</option>
-              {databases.map(db => (
-                <option value={db.name} key={db.name}>{db.database_name} ({db.database_type})</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-details">
-            <table cellSpacing="0">
-              <tbody>
-                <tr id="row">
-                  <td id="input"><label className="label">Enter Question</label><input className="input" type="text" name="Question" placeholder="Enter your question here" onChange={(e) => this.setState({ question: e.target.value })}/></td>
-                </tr>
-              </tbody>
-            </table>
-            <button className="btn" type="submit">
-              Submit
-            </button>
-          </div>
-          <div className={`error ${isError ? 'show' : 'hide'}`}>
-            <span className="message">Error: {apimessage}</span>
-          </div>
+      <div className="parent">
+        <form className="input-container" onSubmit={this.formSubmit}>
+          <select onChange={this.onDatabaseChange} className="select-db">
+            <option value="" disabled selected>Select a Database</option>
+            {databases.map(db => (
+              <option value={db.name} key={db.name}>{db.database_name} ({db.database_type})</option>
+            ))}
+          </select>
+          <img src={require("./assets/search.png")} alt="Search icon" style={{width:'20px'}}/>
+          <input type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })}/>
+          <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{width:'15px'}} alt="Cross button" /></button>
+          <button type="submit" className="go-btn">Go</button>
         </form>
+
+        <div className="card-container">
+          <div className="card" id="card1">
+            <p className="question">How many heads of the departments are older than 56 ?</p>
+            <p className="db-name">department_management</p>
+          </div>
+          {/* ... other cards ... */}
+        </div>
+
         <div>
           <p>Generated SQL: {this.state.generatedSQL}</p>
         </div>
+
         <div className="table-display">
           {data.length > 1 && (
             <table>
@@ -205,9 +199,16 @@ class FormValue extends Component {
             </table>
           )}
         </div>
+
+        {/* Export as CSV Button */}
         <button className="btn" type="button" onClick={this.exportDataAsCSV}>
           Export as CSV
         </button>
+
+        {/* Error Display */}
+        <div className={`error ${isError ? 'show' : 'hide'}`}>
+          <span className="message">Error: {apimessage}</span>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,151 @@
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    line-height: 1.6em;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container */
+.input-container,
+.card-container {
+    width: 70%;
+    margin: auto;
+}
+
+/* Input Container */
+.input-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Provides space between children elements */
+}
+
+.input-container select,
+.input-container input,
+.input-container button {
+    border: none;
+    outline: none;
+}
+
+.input-container input {
+    flex-grow: 2; /* Takes more width compared to other elements */
+    padding: 10px;
+    font-size: 16px;
+}
+
+.input-container select {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Buttons */
+.go-btn,
+.cross-btn,
+.btn {
+    cursor: pointer;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.go-btn:hover,
+.cross-btn:hover,
+.btn:hover {
+    background-color: #218d54;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    gap: 20px; /* Provides space between cards */
+    margin-top: 40px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #ccc;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 15px 5px #ccc;
+}
+
+/* Table Display */
+.table-display table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-display th,
+.table-display td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.table-display th {
+    background-color: #f2f2f2;
+}
+
+.table-display tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Error Display */
+.error {
+    display: none;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+.error.show {
+    display: block;
+}
+
+/* Other UI Elements */
+.question, .db-name {
+    margin: 10px 0;
+}
+
+/* Responsive Design */
+@media(max-width: 768px) {
+    .input-container,
+    .card-container {
+        width: 90%;
+    }
+
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
