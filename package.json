@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "react-router-dom": "^6.16.0"
+  },
+  "scripts": {
+    "dev": "cd backend && python app.py",
+    "dev:react": "cd frontend && npm start"
   }
 }
