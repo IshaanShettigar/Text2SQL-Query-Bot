@@ -32,14 +32,14 @@ function App() {
 function Home() {
   return (
     <div>
-      <h2 style={{ color: "black", textAlign: "center", fontFamily: "Roboto" }}>
+      <h2 style={{ color: "black", textAlign: "center", fontFamily: "Arial" }}>
         Database Select
       </h2>
       <p
         style={{
           color: "black",
           textAlign: "center",
-          fontFamily: "Roboto",
+          fontFamily: "Arial",
         }}
       >
         A database selection tool designed to assist users retrieve SQL commands for chosen database.

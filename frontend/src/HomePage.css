@@ -63,6 +63,10 @@ header {
     gap: 50px
 }
 
+.hero-container {
+    gap: 40px !important;
+}
+
 .hero-container h1 {
     font-size: 50px;
 }

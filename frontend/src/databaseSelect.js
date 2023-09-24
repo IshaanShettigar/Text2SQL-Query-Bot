@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import './databaseSelect.css';
 import Papa from 'papaparse';
 import './chatui.css'
 
@@ -15,9 +14,9 @@ class FormValue extends Component {
       sql: "",
       question: "",
     };
-    
+
     this.formSubmit = this.formSubmit.bind(this);
-}
+  }
 
 
   componentDidMount() {
@@ -46,33 +45,33 @@ class FormValue extends Component {
   exportDataAsCSV = () => {
     const data = this.state.data;
     if (data && data.length > 0) {
-        const csv = Papa.unparse(data);
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.setAttribute('hidden','');
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'data.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      const csv = Papa.unparse(data);
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('hidden', '');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'data.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else {
-        alert('No data to export');
+      alert('No data to export');
     }
   }
 
   async formSubmit(event) {
     event.preventDefault();
-  
+
     if (!this.state.selectedDatabase) {
       alert("Please select a database.");
       return;
     }
-  
+
     const form = event.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-  
+
     const data = {
       ...formJson,
       database_url: this.state.selectedDatabase.url,
@@ -80,12 +79,12 @@ class FormValue extends Component {
       database_type: this.state.selectedDatabase.type,
       question: this.state.question,
     }
-  
+
     try {
       // Wait for the SQL to be generated before proceeding.
       const generatedSQL = await this.getGeneratedSQL(data);
       this.setState({ generatedSQL });
-  
+
       const data2 = {
         ...formJson,
         database_url: this.state.selectedDatabase.url,
@@ -93,7 +92,7 @@ class FormValue extends Component {
         database_type: this.state.selectedDatabase.type,
         query: generatedSQL,
       }
-  
+
       // Proceed with retrieve_data.
       fetch('http://localhost:5000/retrieve_data', {
         method: 'POST',
@@ -163,9 +162,9 @@ class FormValue extends Component {
               <option value={db.name} key={db.name}>{db.database_name} ({db.database_type})</option>
             ))}
           </select>
-          <img src={require("./assets/search.png")} alt="Search icon" style={{width:'20px'}}/>
-          <input type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })}/>
-          <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{width:'15px'}} alt="Cross button" /></button>
+          <img src={require("./assets/search.png")} alt="Search icon" style={{ width: '20px' }} />
+          <input type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })} />
+          <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{ width: '15px' }} alt="Cross button" /></button>
           <button type="submit" className="go-btn">Go</button>
         </form>
 
@@ -173,6 +172,15 @@ class FormValue extends Component {
           <div className="card" id="card1">
             <p className="question">How many heads of the departments are older than 56 ?</p>
             <p className="db-name">department_management</p>
+          </div>
+          <div class="card" id="card2">
+            <p class="question">What is the average number of employees of the departments whose rank is between 10 and
+              15?</p>
+            <p class="db-name">department_management</p>
+          </div>
+          <div class="card" id="card3">
+            <p class="question">In which year were most departments established?</p>
+            <p class="db-name">department_management</p>
           </div>
           {/* ... other cards ... */}
         </div>

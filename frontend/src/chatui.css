@@ -1,12 +1,7 @@
 body {
-    background-color: #f4f4f4;
     font-family: 'Arial', sans-serif;
-    color: #555;
-    line-height: 1.6em;
     margin: 0;
     padding: 0;
-    align-items: center;
-    justify-content: center;
 }
 
 .parent {
@@ -33,7 +28,8 @@ body {
     background: #fff;
     display: flex;
     align-items: center;
-    gap: 10px; /* Provides space between children elements */
+    gap: 10px;
+    /* Provides space between children elements */
 }
 
 .input-container select,
@@ -44,7 +40,8 @@ body {
 }
 
 .input-container input {
-    flex-grow: 2; /* Takes more width compared to other elements */
+    flex-grow: 2;
+    /* Takes more width compared to other elements */
     padding: 10px;
     font-size: 16px;
 }
@@ -67,6 +64,10 @@ body {
     transition: background 0.3s ease;
 }
 
+.go-btn {
+    font-size: 17px;
+}
+
 .go-btn:hover,
 .cross-btn:hover,
 .btn:hover {
@@ -76,8 +77,10 @@ body {
 /* Card Container */
 .card-container {
     display: flex;
-    gap: 20px; /* Provides space between cards */
-    margin-top: 40px;
+    gap: 20px;
+    /* Provides space between cards */
+    margin-top: 100px;
+    margin-bottom: 40px;
 }
 
 .card {
@@ -86,12 +89,15 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 #ccc;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.15s ease;
+    cursor: pointer;
+    width: 30%;
 }
 
 .card:hover {
     box-shadow: 0 0 15px 5px #ccc;
 }
+
 
 /* Table Display */
 .table-display table {
@@ -129,12 +135,18 @@ body {
 }
 
 /* Other UI Elements */
-.question, .db-name {
+.question,
+.db-name {
     margin: 10px 0;
+}
+
+.db-name {
+    font-size: 14px;
 }
 
 /* Responsive Design */
 @media(max-width: 768px) {
+
     .input-container,
     .card-container {
         width: 90%;
