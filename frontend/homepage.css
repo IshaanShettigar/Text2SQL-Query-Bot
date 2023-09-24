@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 17px 25px;
+    margin: 20px 60px 0px 60px;
+    border-radius: 65px;
+    font-size: 19px;
+    /* font-weight: 00; */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    align-items: center;
+}
+
+
+.logo {
+    height: 50px;
+}
+
+.lhs {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.rhs {
+    margin-right: 20px;
+}
+
+/* Button styles */
+.try-now-btn {
+    padding: 10px 30px;
+    font-size: 20px;
+    border-radius: 25px;
+    background-color: #6409CD;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    transition: 0.1s;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.try-now-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: #6409CD;
+    border: 2px solid #6409CD;
+    background-color: #ffffff;
+}
+
+/** header is over */
+.hero-container,
+.info-container,
+.tech-container {
+    display: flex;
+    justify-content: space-around;
+    width: 73%;
+    margin: 60px auto;
+    gap: 50px
+}
+
+.hero-container h1 {
+    font-size: 50px;
+}
+
+.hero-container p {
+    font-size: 25px;
+}
+
+.hero-text {
+    margin-top: 150px;
+}
+
+
+.info-container {
+    gap: 100px;
+}
+
+
+
+.info-container p {
+    font-size: 18px;
+    line-height: 135%;
+}
+
+.tech-super-container {
+    margin: 175px 0;
+    background-color: #6409CD;
+    /* Look into making this a gradient think about something like this https://www.canva.com/colors/color-wheel/*/
+    color: #ffffff;
+}
+
+.tech-container {
+    gap: 60px;
+}
+
+.tech-card {
+    margin: 100px 0;
+    max-width: 30%;
+    text-align: center;
+}
+
+.tech-card .heading {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.tech-card .body {
+    line-height: 130%;
+}
