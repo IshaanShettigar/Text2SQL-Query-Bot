@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import FormValue from './databaseSelect';
 import AdminPage from './adminpage'; // Adjust the import path if needed
+import HomePage from './HomePage';
 // import any other components you have
 
 function App() {
@@ -10,15 +11,17 @@ function App() {
       <div className="App">
         <nav>
           <ul>
-            <li><Link to="/">Database Select</Link></li>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/home">Database Select</Link></li>
             <li><Link to="/admin">Admin Page</Link></li>
             {/* Add more Links as needed */}
           </ul>
         </nav>
 
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/admin" element={<AdminPage />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           {/* Add more Routes as needed */}
         </Routes>
       </div>
