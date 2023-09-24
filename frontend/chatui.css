@@ -1,0 +1,145 @@
+body {
+    background-color: #ededed;
+}
+
+.input-container {
+    border: 1px solid rgb(188, 188, 188);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    border-radius: 20px;
+    padding: 6px 10px;
+    /* max-width: 80%; */
+    background-color: #fff;
+    width: 70%;
+    /* width: fit-content; */
+    margin: 20px auto 50px auto;
+}
+
+.input-container select,
+.input-container input,
+.input-container button {
+    border: none;
+    outline: none;
+    margin: 0px 10px;
+}
+
+.input-container input {
+    width: 50%;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-left: 0px;
+}
+
+.input-container input:focus {
+    border: none;
+}
+
+.input-container select {
+    width: 18%;
+    font-size: 16px;
+}
+
+.input-container button {
+    /* padding: 5px 5px; */
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.input-container img {
+    vertical-align: sub;
+}
+
+
+.cross-btn {
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+
+.cross-btn:hover {
+    background-color: #c8c8c8;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.go-btn {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #27ae60;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    padding: 8px 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    /* vertical-align: top; */
+    white-space: nowrap;
+}
+
+.go-btn:hover {
+    background-color: #1e8449;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+}
+
+.go-btn:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+}
+
+.go-btn:hover {
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+
+/* Example cards */
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 100px auto;
+    width: 70%;
+    font-family: sans-serif;
+}
+
+.card {
+    background-color: #fff;
+    width: 25%;
+    padding: 20px;
+    cursor: pointer;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 6px 12px;
+}
+
+.question {
+    font-size: 16px;
+}
+
+.db-name {
+    font-size: 13px;
+    color: rgb(103, 103, 103);
+}

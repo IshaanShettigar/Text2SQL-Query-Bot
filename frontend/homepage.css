@@ -9,7 +9,8 @@ header {
     padding: 17px 25px;
     margin: 20px 60px 0px 60px;
     border-radius: 65px;
-    font-size: 21px;
+    font-size: 19px;
+    /* font-weight: 00; */
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
     align-items: center;
 }
