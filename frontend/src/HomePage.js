@@ -7,7 +7,7 @@ function HomePage() {
             <header>
                 <div className="lhs">
                     <div className="logo">
-                        <img src="./public/GEHCLOGO.png" alt="LOGO" className="logo" />
+                        <img src={require("./assets/GEHCLOGO.png")} alt="LOGO" className="logo" />
                     </div>
                     <span>Product</span>
                     <span>About Us</span>
@@ -27,7 +27,7 @@ function HomePage() {
                     <button className="try-now-btn">Use Now for Free!</button>
                 </div>
                 <div className="hero-gif">
-                    <img src="./public/analyticsgif.gif" alt="chat-gif" style={{ width: '700px' }} />
+                    <img src={require("./assets/analyticsgif.gif")} alt="chat-gif" style={{ width: '700px' }} />
                 </div>
             </div>
             <br />
@@ -37,7 +37,7 @@ function HomePage() {
             </h1>
             <div className="info-container">
                 <div className="info-gif">
-                    <img src="./public/infogif.gif" alt="Informative GIF" style={{ width: '650px' }} />
+                    <img src={require("./assets/infogif.gif")} alt="Informative GIF" style={{ width: '650px' }} />
                 </div>
                 <div className="info-text">
                     <h1>AI Powered Search in Natural Language</h1>
@@ -52,7 +52,7 @@ function HomePage() {
             <div className="tech-super-container">
                 <div className="tech-container">
                     <div className="tech-card">
-                        <img className="icon" src="./public/icons8-knowledge.png" alt="Book icon" />
+                        <img className="icon" src={require("./assets/icons8-knowledge.png")} alt="Book icon" />
                         <p className="heading">External Knowledge</p>
                         <p className="body">
                             Through advanced technology, our AI acquires expertise in company-specific terminology. This enriches the AI's
@@ -61,7 +61,7 @@ function HomePage() {
                         </p>
                     </div>
                     <div className="tech-card">
-                        <img className="icon" src="./public/icons8-data-protection.png" alt="Unauthorized Icon" />
+                        <img className="icon" src={require("./assets/icons8-data-protection.png")} alt="Unauthorized Icon" />
                         <p className="heading">Prevents Unauthorized Access</p>
                         <p className="body">
                             Our platform ensures that authorized users can maintain their accessibility while implementing robust
