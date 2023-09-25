@@ -29,7 +29,7 @@ function App() {
 function Home() {
   return (
     <div>
-      <h2 style={{ color: "black", textAlign: "center", fontFamily: "Arial" }}>
+      <h2 style={{ color: "black", textAlign: "center", fontFamily: "Arial", margin: "50px 0 20px 0" }}>
         Database Select
       </h2>
       <p
