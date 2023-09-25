@@ -135,4 +135,4 @@ def getDatabase():
 
 if __name__ == '__main__':
     config.read(configfile)
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
