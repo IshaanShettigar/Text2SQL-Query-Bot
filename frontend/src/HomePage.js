@@ -1,25 +1,10 @@
 import React from 'react';
 import './HomePage.css'; // Import your CSS file
+// import Header from './Header'; // Import the Header component
 
 function HomePage() {
     return (
         <div>
-            <header>
-                <div className="lhs">
-                    <div className="logo">
-                        <img src={require("./assets/GEHCLOGO.png")} alt="LOGO" className="logo" />
-                    </div>
-                    <span>Product</span>
-                    <span>About Us</span>
-                </div>
-                <div className="rhs">
-                    <button className="try-now-btn">
-                        <span>Try Now</span>
-                        <i></i>
-                    </button>
-                </div>
-            </header>
-
             <div className="hero-container">
                 <div className="hero-text">
                     <h1>Unlock Your Data With Ease</h1>
@@ -50,6 +35,7 @@ function HomePage() {
                 </div>
             </div>
             <div className="tech-super-container">
+                <h1 >Show stoppers</h1>
                 <div className="tech-container">
                     <div className="tech-card">
                         <img className="icon" src={require("./assets/icons8-knowledge.png")} alt="Book icon" />
