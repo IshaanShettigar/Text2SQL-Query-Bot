@@ -13,9 +13,12 @@ class FormValue extends Component {
       selectedDatabase: null,
       sql: "",
       question: "",
+      selectedThumb: null,
     };
 
     this.formSubmit = this.formSubmit.bind(this);
+    this.handleThumbsUp = this.handleThumbsUp.bind(this);
+    this.handleThumbsDown = this.handleThumbsDown.bind(this);
   }
 
 
@@ -40,6 +43,39 @@ class FormValue extends Component {
       selectedDatabase: selectedDb,
 
     });
+  }
+
+  handleThumbsUp = async () => {
+    if(this.state.selectedThumb !== 'up') {
+      this.setState({ selectedThumb: 'up' });
+      this.handleThumb('up');
+    }
+  };
+
+  handleThumbsDown = async () => {
+    if(this.state.selectedThumb !== 'down') {
+      this.setState({ selectedThumb: 'down' });
+      this.handleThumb('down');
+    }
+  };
+
+  handleThumb(type) {
+    const { question, generatedSQL } = this.state;
+    fetch(`http://localhost:5000/thumb_${type}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question, sql: generatedSQL }),
+    }).catch(error => {
+      console.error(`Error in thumbs ${type}:`, error);
+    });
+
+    if(type === 'up') {
+      this.setState(prevState => ({ thumbsUp: prevState.thumbsUp + 1 }));
+    } else {
+      this.setState(prevState => ({ thumbsDown: prevState.thumbsDown + 1 }));
+    }
   }
 
   exportDataAsCSV = () => {
@@ -182,11 +218,20 @@ class FormValue extends Component {
             <p class="question">In which year were most departments established?</p>
             <p class="db-name">department_management</p>
           </div>
-          {/* ... other cards ... */}
         </div>
 
         <div>
           <p>Generated SQL: {this.state.generatedSQL}</p>
+          {this.state.data.length > 1 && (
+            <div className="thumbs-container">
+              <button type="button" onClick={this.handleThumbsUp} className={`thumbs-up ${this.state.selectedThumb === 'up' ? 'selected' : ''}`}>
+                  Thumbs Up 👍
+              </button>
+              <button type="button" onClick={this.handleThumbsDown} className={`thumbs-down ${this.state.selectedThumb === 'down' ? 'selected' : ''}`}>
+                  Thumbs Down 👎
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="table-display">

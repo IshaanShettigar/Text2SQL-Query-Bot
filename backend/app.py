@@ -65,6 +65,27 @@ def generate_sql():
     except Exception as e:
         return jsonify({"status": "Error", "message": "Could not generate SQL. Reason: " + str(e)}), 500
 
+
+@app.route('/thumb_up', methods=['POST'])
+@cross_origin()
+def thumb_up():
+    data = request.json
+    question = data.get('question')
+    sql = data.get('sql')
+    with open('thumbs_up.txt', 'a') as f:
+        f.write(f"Question: {question}\nSQL: {sql}\n\n")
+    return jsonify({"status": "Success", "message": "Written to thumbs_up.txt"}), 200
+
+@app.route('/thumb_down', methods=['POST'])
+@cross_origin()
+def thumb_down():
+    data = request.json
+    question = data.get('question')
+    sql = data.get('sql')
+    with open('thumbs_down.txt', 'a') as f:
+        f.write(f"Question: {question}\nSQL: {sql}\n\n")
+    return {"status": "Success", "message": "Written to thumbs_down.txt"}
+
 # Connect to database and retrieve data with generated SQL
 @app.route('/retrieve_data', methods=['POST'])
 @cross_origin()

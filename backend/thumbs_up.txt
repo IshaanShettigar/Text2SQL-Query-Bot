@@ -1,0 +1,2 @@
+Question: Give all driver names
+SQL: SELECT DISTINCT forename, surname FROM drivers;
