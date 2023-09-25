@@ -159,7 +159,7 @@ class FormValue extends Component {
           <select onChange={this.onDatabaseChange} className="select-db">
             <option value="" disabled selected>Select a Database</option>
             {databases.map(db => (
-              <option value={db.name} key={db.name}>{db.database_name} ({db.database_type})</option>
+              <option value={db.name} key={db.name}>{db.database_name} ({db.type})</option>
             ))}
           </select>
           <img src={require("./assets/search.png")} alt="Search icon" style={{ width: '20px' }} />

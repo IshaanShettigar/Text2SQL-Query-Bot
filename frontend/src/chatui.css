@@ -22,7 +22,7 @@ body {
 .input-container {
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 0 10px 0 #ccc;
+    box-shadow: 2 2 10px 0 #777777;
     padding: 20px;
     margin: 20px 0;
     background: #fff;
@@ -56,9 +56,8 @@ body {
 .cross-btn,
 .btn {
     cursor: pointer;
-    background-color: #27ae60;
+    background-color: #6409CD;
     color: white;
-    border: none;
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -71,8 +70,11 @@ body {
 .go-btn:hover,
 .cross-btn:hover,
 .btn:hover {
-    background-color: #218d54;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: #6409CD;
+    background-color: #ffffff;
 }
+
 
 /* Card Container */
 .card-container {
@@ -144,7 +146,19 @@ body {
     font-size: 14px;
 }
 
-/* Responsive Design */
+.select-db {
+    width: 220px;
+    height: 45px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px #8f8f8f;
+    background: #ffffff;
+    border: none;
+    outline: none;
+    display: inline-block;
+    appearance: none;
+    cursor: pointer;
+  }
+
 @media(max-width: 768px) {
 
     .input-container,
