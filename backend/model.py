@@ -12,16 +12,17 @@ def SQL_gen(ddl_statement,question):
     external_knowledge = get_external_knowledge(question=question)
 
     prompt = f"""{ddl_statement}
+    -- ONLY MAKE USE OF THIS EXTERNAL KNOWLEDGE IF NEEDED \n{external_knowledge}
     -- Using valid SQLite, answer the following questions for the tables provided above.
-    -- You can make use of this extra information if needed {external_knowledge}
     -- {question}
     SQL: """
 
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
     generated_ids = model.generate(input_ids, max_length=2000)
     output = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+    print(output)
     output = output.split('SQL:')[-1]
-    print(output.strip())
+    # print(output.strip())
     return(output.strip())
 
 
@@ -37,7 +38,7 @@ def get_external_knowledge(question):
     )
 
     ans = ans["documents"][0][0].split(',')
-    finalStr = f"original_column_name: {ans[0]}\ncolumn_name: {ans[1]}\ncolumn_description: {ans[2]}\ndata_format: {ans[3]}\nvalue_description: {ans[4]}\n"
+    finalStr = f"original_column_name: {ans[0]}\ncolumn_description: {ans[2]}\ndata_format: {ans[3]}\nvalue_description: {ans[4]}\n"
     # return ans["documents"][0][0]
     print(finalStr)
     return finalStr
@@ -135,3 +136,4 @@ CREATE TABLE Laboratory
 """
 
 
+# SQL_gen(ddl,)
