@@ -234,6 +234,10 @@ class FormValue extends Component {
           )}
         </div>
 
+        <div className={`error ${isError ? 'show' : 'hide'}`}>
+          <span className="message">Error: {apimessage}</span>
+        </div>
+
         <div className="table-display">
           {data.length > 1 && (
             <table>
@@ -258,10 +262,6 @@ class FormValue extends Component {
           Export as CSV
         </button>
 
-        {/* Error Display */}
-        <div className={`error ${isError ? 'show' : 'hide'}`}>
-          <span className="message">Error: {apimessage}</span>
-        </div>
       </div>
     );
   }
