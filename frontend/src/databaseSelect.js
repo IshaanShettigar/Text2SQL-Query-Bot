@@ -199,7 +199,7 @@ class FormValue extends Component {
             ))}
           </select>
           <img src={require("./assets/search.png")} alt="Search icon" style={{ width: '20px' }} />
-          <input type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })} />
+          <input id="Question" type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })} />
           <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{ width: '15px' }} alt="Cross button" /></button>
           <button type="submit" className="go-btn">Go</button>
         </form>
