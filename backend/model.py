@@ -18,7 +18,7 @@ def SQL_gen(ddl_statement,question):
     SQL: """
 
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-    generated_ids = model.generate(input_ids, max_length=1000)
+    generated_ids = model.generate(input_ids, max_length=2000)
     output = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
     output = output.split('SQL:')[-1]
     print(output.strip())
@@ -133,4 +133,5 @@ CREATE TABLE Laboratory
             on update cascade on delete cascade
 )
 """
+
 
