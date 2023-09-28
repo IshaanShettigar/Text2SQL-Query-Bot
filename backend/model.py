@@ -12,7 +12,7 @@ def SQL_gen(ddl_statement,question):
     external_knowledge = get_external_knowledge(question=question)
 
     prompt = f"""{ddl_statement}
-    -- ONLY MAKE USE OF THIS EXTERNAL KNOWLEDGE IF NEEDED \n{external_knowledge}
+    -- Use this information \n{external_knowledge}
     -- Using valid SQLite, answer the following questions for the tables provided above.
     -- {question}
     SQL: """
@@ -20,8 +20,8 @@ def SQL_gen(ddl_statement,question):
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids
     generated_ids = model.generate(input_ids, max_length=2000)
     output = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
-    print(output)
     output = output.split('SQL:')[-1]
+    print(output)
     # print(output.strip())
     return(output.strip())
 
@@ -49,12 +49,12 @@ ddl = """
 CREATE TABLE Examination
 (
     ID                 INTEGER          null,
-    `Examination Date` DATE         null,
-    `aCL IgG`          REAL        null,
-    `aCL IgM`          REAL        null,
+    Examination Date DATE         null,
+    aCL IgG          REAL        null,
+    aCL IgM          REAL        null,
     ANA                INTEGER          null,
-    `ANA Pattern`      TEXT null,
-    `aCL IgA`          INTEGER          null,
+    ANA Pattern      TEXT null,
+    aCL IgA          INTEGER          null,
     Diagnosis          TEXT null,
     KCT                TEXT null,
     RVVT              TEXT null,
@@ -134,6 +134,3 @@ CREATE TABLE Laboratory
             on update cascade on delete cascade
 )
 """
-
-
-# SQL_gen(ddl,)

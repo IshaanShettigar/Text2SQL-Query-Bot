@@ -46,14 +46,14 @@ class FormValue extends Component {
   }
 
   handleThumbsUp = async () => {
-    if(this.state.selectedThumb !== 'up') {
+    if (this.state.selectedThumb !== 'up') {
       this.setState({ selectedThumb: 'up' });
       this.handleThumb('up');
     }
   };
 
   handleThumbsDown = async () => {
-    if(this.state.selectedThumb !== 'down') {
+    if (this.state.selectedThumb !== 'down') {
       this.setState({ selectedThumb: 'down' });
       this.handleThumb('down');
     }
@@ -71,7 +71,7 @@ class FormValue extends Component {
       console.error(`Error in thumbs ${type}:`, error);
     });
 
-    if(type === 'up') {
+    if (type === 'up') {
       this.setState(prevState => ({ thumbsUp: prevState.thumbsUp + 1 }));
     } else {
       this.setState(prevState => ({ thumbsDown: prevState.thumbsDown + 1 }));
@@ -206,17 +206,16 @@ class FormValue extends Component {
 
         <div className="card-container">
           <div className="card" id="card1">
-            <p className="question">How many heads of the departments are older than 56 ?</p>
-            <p className="db-name">department_management</p>
+            <p className="question">Give me all Male Patients</p>
+            <p className="db-name">Thrombosis Prediction</p>
           </div>
           <div class="card" id="card2">
-            <p class="question">What is the average number of employees of the departments whose rank is between 10 and
-              15?</p>
-            <p class="db-name">department_management</p>
+            <p class="question">Give me everyone that has the most severe thrombosis</p>
+            <p class="db-name">Thrombosis Prediction</p>
           </div>
           <div class="card" id="card3">
-            <p class="question">In which year were most departments established?</p>
-            <p class="db-name">department_management</p>
+            <p class="question">Give me all IDs who have SLE disease</p>
+            <p class="db-name">Thrombosis Prediction</p>
           </div>
         </div>
 
@@ -225,10 +224,10 @@ class FormValue extends Component {
           {this.state.data.length > 1 && (
             <div className="thumbs-container">
               <button type="button" onClick={this.handleThumbsUp} className={`thumbs-up ${this.state.selectedThumb === 'up' ? 'selected' : ''}`}>
-                  Thumbs Up 👍
+                Thumbs Up 👍
               </button>
               <button type="button" onClick={this.handleThumbsDown} className={`thumbs-down ${this.state.selectedThumb === 'down' ? 'selected' : ''}`}>
-                  Thumbs Down 👎
+                Thumbs Down 👎
               </button>
             </div>
           )}

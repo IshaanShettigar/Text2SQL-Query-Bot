@@ -1,3 +1,15 @@
 Question: Give all driver names
 SQL: SELECT DISTINCT forename, surname FROM drivers;
 
+Question: Give me all male patients
+SQL: SELECT * FROM patient WHERE sex = 'M' AND NOT id IS NULL;
+
+Question: Give me all IDs who have SLE disease
+SQL: SELECT id FROM patient WHERE diagnosis = 'SLE';
+
+Question: Give me everyone that has severe thrombosis
+SQL: SELECT * FROM examination WHERE thrombosis = 1;
+
+Question: How many examinations have been conducted
+SQL: SELECT COUNT(*) FROM examination;
+

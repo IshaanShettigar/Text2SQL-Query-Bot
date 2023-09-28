@@ -53,7 +53,7 @@ cursor.execute("SELECT Symptoms FROM Examination WHERE Diagnosis = 'SLE' GROUP B
 res = cursor.fetchall()
 print(res)
 
-q = "select ID from Laboratory where FG < 150 or FG > 450"
+q = "select * from Laboratory"
 print("NSQL 350M\n",q)
 cursor.execute(q)
 res = cursor.fetchall()
