@@ -1,0 +1,8 @@
+transformers
+tensorflow
+flask
+json
+configparser
+pymysql
+psycopg2
+mysql.connector
