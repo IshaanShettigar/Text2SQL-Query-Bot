@@ -1,3 +1,6 @@
 Question: Give circuit names
 SQL: SELECT circuit_id, name FROM circuits;
 
+Question: Give all drivers and teams that have same nationality
+SQL: SELECT DISTINCT T1.code, T1.forename, T1.surname FROM drivers AS T1 JOIN races AS T2 ON T1.driver_id = T2.driver_id JOIN constructors AS T3 ON T2.constructor_id = T3.constructor_id WHERE T3.nationality = T1.nationality;
+
