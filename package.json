@@ -4,6 +4,6 @@
   },
   "scripts": {
     "dev": "cd backend && python app.py",
-    "dev:react": "cd frontend && npm start"
+    "dev-react": "cd frontend && npm start"
   }
 }
