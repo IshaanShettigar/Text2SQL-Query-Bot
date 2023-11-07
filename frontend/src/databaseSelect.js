@@ -14,6 +14,7 @@ class FormValue extends Component {
       sql: "",
       question: "",
       selectedThumb: null,
+      formSubmitted: false,
     };
 
     this.formSubmit = this.formSubmit.bind(this);
@@ -99,6 +100,8 @@ class FormValue extends Component {
   async formSubmit(event) {
     event.preventDefault();
 
+    this.setState({ formSubmitted: true });
+
     if (!this.state.selectedDatabase) {
       alert("Please select a database.");
       return;
@@ -141,7 +144,6 @@ class FormValue extends Component {
         .then(data => {
           if (data.status === "Success") {
             this.setState({ data: data.message, isError: false, apimessage: data.message });
-            alert("Database connected successfully");
           }
           else {
             this.setState({ isError: true, apimessage: data.message });
@@ -188,54 +190,26 @@ class FormValue extends Component {
   }
 
   render() {
-    const { isError, apimessage, data, databases } = this.state;
+    const { isError, apimessage, data, databases, question, generatedSQL, formSubmitted } = this.state;
     return (
       <div className="parent">
-        <form className="input-container" onSubmit={this.formSubmit}>
-          <select onChange={this.onDatabaseChange} className="select-db">
-            <option value="" disabled selected>Select a Database</option>
-            {databases.map(db => (
-              <option value={db.name} key={db.name}>{db.database_name} ({db.type})</option>
-            ))}
-          </select>
-          <img src={require("./assets/search.png")} alt="Search icon" style={{ width: '20px' }} />
-          <input id="Question" type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })} />
-          <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{ width: '15px' }} alt="Cross button" /></button>
-          <button type="submit" className="go-btn">Go</button>
-        </form>
-
-        <div className="card-container">
-          <div className="card" id="card1">
-            <p className="question">How many heads of the departments are older than 56 ?</p>
-            <p className="db-name">department_management</p>
-          </div>
-          <div class="card" id="card2">
-            <p class="question">What is the average number of employees of the departments whose rank is between 10 and
-              15?</p>
-            <p class="db-name">department_management</p>
-          </div>
-          <div class="card" id="card3">
-            <p class="question">In which year were most departments established?</p>
-            <p class="db-name">department_management</p>
-          </div>
-        </div>
-
-        <div>
-          <p>Generated SQL: {this.state.generatedSQL}</p>
+        <div className="chat-ui">
+          {formSubmitted && question && (
+            <p className="question-display">Question: {question}</p>
+          )}
+          {formSubmitted && generatedSQL && (
+            <p className="answer-display">Generated SQL: {generatedSQL}</p>
+          )}
           {this.state.data.length > 1 && (
             <div className="thumbs-container">
               <button type="button" onClick={this.handleThumbsUp} className={`thumbs-up ${this.state.selectedThumb === 'up' ? 'selected' : ''}`}>
-                  Thumbs Up 👍
+                  👍
               </button>
               <button type="button" onClick={this.handleThumbsDown} className={`thumbs-down ${this.state.selectedThumb === 'down' ? 'selected' : ''}`}>
-                  Thumbs Down 👎
+                  👎
               </button>
             </div>
           )}
-        </div>
-
-        <div className={`error ${isError ? 'show' : 'hide'}`}>
-          <span className="message">Error: {apimessage}</span>
         </div>
 
         <div className="table-display">
@@ -257,10 +231,42 @@ class FormValue extends Component {
           )}
         </div>
 
-        {/* Export as CSV Button */}
         <button className="btn" type="button" onClick={this.exportDataAsCSV}>
           Export as CSV
         </button>
+
+        <div className={`error ${isError ? 'show' : 'hide'}`}>
+          <span className="message">Error: {apimessage}</span>
+        </div>
+
+        <form className="input-container bottom-shadow" onSubmit={this.formSubmit}>
+          <select onChange={this.onDatabaseChange} className="select-db">
+            <option value="" disabled selected>Select a Database</option>
+            {databases.map(db => (
+              <option value={db.name} key={db.name}>{db.database_name} ({db.type})</option>
+            ))}
+          </select>
+          <img src={require("./assets/search.png")} alt="Search icon" style={{ width: '20px' }} />
+          <input id="Question" type="text" placeholder="Ask a question about your data..." onChange={(e) => this.setState({ question: e.target.value })} />
+          <button type="button" className="cross-btn"><img src={require("./assets/cross.png")} style={{ width: '15px' }} alt="Cross button" /></button>
+          <button type="submit" className="go-btn">Go</button>
+        </form>
+
+        {/* <div className="card-container">
+          <div className="card" id="card1">
+            <p className="question">How many heads of the departments are older than 56 ?</p>
+            <p className="db-name">department_management</p>
+          </div>
+          <div class="card" id="card2">
+            <p class="question">What is the average number of employees of the departments whose rank is between 10 and
+              15?</p>
+            <p class="db-name">department_management</p>
+          </div>
+          <div class="card" id="card3">
+            <p class="question">In which year were most departments established?</p>
+            <p class="db-name">department_management</p>
+          </div>
+        </div> */}
 
       </div>
     );

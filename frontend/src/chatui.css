@@ -9,7 +9,43 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 7%;
 }
+
+.chat-ui {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.question-display {
+    color: #6409CD;
+    background-color: #f0f0f0; /* A light grey background */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 3px solid #6409CD; /* A teal border on the left for emphasis */
+    font-weight: bold;
+    font-size: larger;
+}
+
+.answer-display {
+    color: #2a9d8f;
+    background-color: #e9ecef;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 3px solid #2a9d8f;
+    font-style: italic;
+}
+  
 
 /* Container */
 .input-container,
@@ -20,7 +56,9 @@ body {
 
 /* Input Container */
 .input-container {
+    position: fixed;
     border: 1px solid #ccc;
+    bottom:0;
     border-radius: 10px;
     box-shadow: 2 2 10px 0 #777777;
     padding: 20px;
@@ -29,7 +67,6 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    /* Provides space between children elements */
 }
 
 .input-container select,
@@ -50,6 +87,10 @@ body {
     padding: 10px;
     font-size: 16px;
 }
+
+.bottom-shadow {
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+ }
 
 /* Buttons */
 .go-btn,
