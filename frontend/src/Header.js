@@ -6,14 +6,11 @@ function Header({ handleNavigation }) {
         <header>
             <div className="lhs">
                 <div className="logo">
-                    <img src={require("./assets/GEHCLOGO.png")} alt="LOGO" className="logo" />
+                    <img src={require("./assets/SQL_logo.png")} alt="LOGO" className="logo"/>
                 </div>
-                {/* <span>Product</span>
-                <span>About Us</span> */}
                 <Link to="/" onClick={() => handleNavigation('/')}>Home Page</Link>
                 <Link to="/home" onClick={() => handleNavigation('/home')}>Database Select</Link>
                 <Link to="/admin" onClick={() => handleNavigation('/admin')}>Admin Page</Link>
-                {/* Add more Links as needed */}
             </div>
             <div className="rhs">
                 <button className="try-now-btn">
