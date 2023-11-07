@@ -1,25 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import FormValue from './databaseSelect';
-import AdminPage from './adminpage'; // Adjust the import path if needed
+import AdminPage from './adminpage';
 import HomePage from './HomePage';
-import Header from './Header'; // Import the Header component
+import Header from './Header';
 
-// import any other components you have
 
 function App() {
 
   return (
     <Router>
       <div className="App">
-
-        <Header /> {/* Pass the callback function */}
-
+        <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/home" element={<Home />} />
-          {/* Add more Routes as needed */}
         </Routes>
       </div>
     </Router>
