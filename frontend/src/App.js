@@ -28,15 +28,6 @@ function Home() {
       <h2 style={{ color: "black", textAlign: "center", fontFamily: "Arial", margin: "50px 0 20px 0" }}>
         Database Select
       </h2>
-      <p
-        style={{
-          color: "black",
-          textAlign: "center",
-          fontFamily: "Arial",
-        }}
-      >
-        A database selection tool designed to assist users retrieve SQL commands for chosen database.
-      </p>
       <div className="forms">
         <FormValue />
       </div>
