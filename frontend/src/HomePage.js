@@ -1,6 +1,5 @@
 import React from 'react';
-import './HomePage.css'; // Import your CSS file
-// import Header from './Header'; // Import the Header component
+import './HomePage.css';
 
 function HomePage() {
     return (
@@ -9,13 +8,12 @@ function HomePage() {
                 <div className="hero-text">
                     <h1>Unlock Your Data With Ease</h1>
                     <p>Introducing the Natural Language SQL Query Bot</p>
-                    <button className="try-now-btn">Use Now for Free!</button>
+                    <button className="try-now-btn">Try Now for Free!</button>
                 </div>
                 <div className="hero-gif">
-                    <img src={require("./assets/analyticsgif.gif")} alt="chat-gif" style={{ width: '700px' }} />
+                    <img src={require("./assets/analyticsgif.gif")} alt="chat-gif" />
                 </div>
             </div>
-            <br />
             <hr style={{ width: '80%', margin: '0 auto', color: 'rgba(108, 108, 108, 0)' }} />
             <h1 style={{ width: '70%', fontSize: '35px', margin: '50px auto 50px auto' }}>
                 Answer any question about your data in an instant
